@@ -1,0 +1,91 @@
+ALGORITHM count_words_vowels
+VAR
+  sentence : STRING[100]
+  word_count, vowel_count, char_count : INTEGER
+  i : INTEGER
+
+BEGIN
+  Write("Enter a sentence:")
+  Read(sentence)
+
+  word_count := 1 
+  vowel_count := 0
+  char_count := 0
+
+  FOR i FROM 1 TO sentence.length-1 STEP 1 DO
+    IF (sentence[i] = ' ') THEN
+      word_count := word_count + 1
+    END_IF
+    IF (sentence[i] = 'a' OR sentence[i] = 'e' OR sentence[i] = 'i' OR sentence[i] = 'o' OR sentence[i] = 'u' OR sentence[i] = 'A' OR sentence[i] = 'E' OR sentence[i] = 'I' OR sentence[i] = 'O' OR sentence[i] = 'U') THEN
+      vowel_count := vowel_count + 1
+    END_IF
+    char_count := char_count + 1
+  END_FOR
+
+  Write("Number of words: ", word_count)
+  Write("Number of vowels: ", vowel_count)
+END
+
+//--------------------------------------//
+ALGORITHM sum_distinct_elements
+VAR
+  set1 : ARRAY[1,2,3,4,5,6,7,8,9,10] OF INTEGER
+  set2 : ARRAY[1,2,3,4,5,6,7,8,9,10] OF INTEGER
+  distinct_elements : ARRAY[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20] OF INTEGER
+  sum, count : INTEGER
+  i, j, k : INTEGER
+BEGIN
+  Write("Enter elements of Set 1 (up to 10 elements, separated by spaces):")
+  FOR i FROM 1 TO 10 DO
+    Read(set1[i])
+  END_FOR
+
+  Write("Enter elements of Set 2 (up to 10 elements, separated by spaces):")
+  FOR i FROM 1 TO 10 DO
+    Read(set2[i])
+  END_FOR
+
+  sum := 0
+  count := 0
+
+  FOR i FROM 1 TO 10 DO
+    FOR j FROM 1 TO 10 DO
+      IF (set1[i] = set2[j]) THEN
+        // element is present in both sets
+        BREAK
+      END_IF
+    END_FOR
+
+    IF (j = 11) THEN
+      // element is not present in set2
+      FOR k FROM 1 TO count DO
+        IF (distinct_elements[k] = set1[i]) THEN
+          // element is already in distinct_elements array
+          BREAK
+        END_IF
+      END_FOR
+
+      IF (k = count+1) THEN
+        // element is not already in distinct_elements array
+        distinct_elements[count+1] := set1[i]
+        count := count + 1
+        sum := sum + set1[i]
+      END_IF
+    END_IF
+  END_FOR
+
+  FOR i FROM 1 TO 10 DO
+    FOR j FROM 1 TO 10 DO
+      IF (set2[i] = set1[j]) THEN
+        // element is present in both sets
+        BREAK
+      END_IF
+    END_FOR
+
+    IF (j = 11) THEN
+      // element is not present in set1
+      FOR k FROM 1 TO count DO
+        IF (distinct_elements[k] = set2[i]) THEN
+          // element is already in distinct_elements array
+          BREAK
+       
